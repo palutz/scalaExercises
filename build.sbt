@@ -1,4 +1,4 @@
-name := "hello"
+name := "scala Exercise"
 
 version := "1.0"    
 
