@@ -5,7 +5,19 @@ def partial1[A, B, C](a: A, f: (A, B) => C): B => C = {
 }
 
 ////// 2.1 - recursive fibonacci
+def fib(n: Int) : Long = {
+  @annotation.tailrec
+  def inner(prev: Long, curr: Long, idx: Int) : Long = {
+    if(idx >= n) prev
+    else
+      inner(curr, curr + prev, idx + 1)
+  }
+  inner(0, 1, 1)
+}
+
+////// 2.1 - recursive fibonacci 2
 def fib2(n: Int): Int = {
+  @annotation.tailrec
   def inner(prev: Int, curr: Int, idx: Int) : Int = {
     if(idx <= 0) prev
     else
