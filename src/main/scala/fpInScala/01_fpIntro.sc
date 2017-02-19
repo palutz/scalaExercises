@@ -1,9 +1,3 @@
-
-def partial1[A, B, C](a: A, f: (A, B) => C): B => C = {
-  (xb: B) => f(a, xb) // returning a function with signature (B= > C) using an anonyous funct.
-  // with a parameter of type B and
-}
-
 ////// 2.1 - recursive fibonacci
 def fib(n: Int) : Long = {
   @annotation.tailrec
@@ -41,4 +35,39 @@ def isSorted[A] (ar: Array[A], ordered: (A, A) => Boolean): Boolean = {
 isSorted(Array(9, 7, 3), (a: Int, b: Int) => a > b)  // true
 isSorted(Array(9, 11, 3), (a: Int, b: Int) => a > b) // false
 
-isSorted(Array(1, 3, 5, 7), (x: Int, y: Int) => x < y)
+isSorted(Array(1, 3, 5, 7), (x: Int, y: Int) => x < y) //true
+
+//
+// partial and currying
+//
+def partial1[A, B, C](a: A, f: (A, B) => C): B => C = {
+  (xb: B) => f(a, xb) // returning a function with signature (B= > C) using an anonyous funct.
+  // with a parameter of type B and
+}
+
+def currying1[A, B, C](f: (A, B) => C): A => (B => C) = {
+  (a: A) =>
+    (b: B) => f(a, b)
+}
+
+def f(a: Int, b: Int): Int = a + b
+def strsLen(a: String, b: Boolean): Int = {
+  if (b) a.length
+  else 0
+}
+
+def add2 = partial1(2, f)
+add2(1)
+def shouldICheck = partial1("my string", strsLen) // shouldICheck[] => Boolean => Int
+shouldICheck(true) // Int = 9
+def should2 = partial1(_ : String, strsLen) // should2[] => String => Boolean => Int
+should2("cippa")(false) // Int = 0
+
+def addx = currying1(f)   // Int => (Int => Int)
+def add1 = currying1(f)(1)   // Int => Int
+// same as ..
+def incrementBy1 = addx(1)  // Int => Int
+
+def checkStr = currying1(strsLen) // String => (Boolean => Int)
+checkStr("a string") // Boolean => Int
+checkStr("a string")(true) // Int = 8
