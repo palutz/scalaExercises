@@ -71,3 +71,14 @@ def incrementBy1 = addx(1)  // Int => Int
 def checkStr = currying1(strsLen) // String => (Boolean => Int)
 checkStr("a string") // Boolean => Int
 checkStr("a string")(true) // Int = 8
+
+//
+// uncurrying ...
+//
+// def uncurry[A,B,C](f: A => B => C): (A, B) => C = { the same of..
+def uncurry[A,B,C](f: A => (B => C)): (A, B) => C = {
+  (a: A, b: B) => f(a)(b)
+}
+
+def adding = uncurry(addx)  // (Int, Int) => Int
+adding(10, 20) // Int = 30
