@@ -82,3 +82,14 @@ def uncurry[A,B,C](f: A => (B => C)): (A, B) => C = {
 
 def adding = uncurry(addx)  // (Int, Int) => Int
 adding(10, 20) // Int = 30
+
+//
+// compose ...
+//
+def compose[A, B, C](f: B => C, g: A => B): A => C = {
+  (a: A) => f(g(a))
+}
+def f(b: Int): Int = b / 2
+def g(a: Int): Int = a + 2
+compose(f, g)(0)  // Int = 1
+compose(g, f)(0)  // Int = 2
