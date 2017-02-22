@@ -57,6 +57,14 @@ package fpIntro.second {
       }
     }
 
+    // SetHead - substitute the head of a list
+    def setHead[A](a: A, l: fpList[A]): fpList[A] = {
+      l match {
+        case (_, t) => Cons(a, t)
+        case _ => Nil // Error
+      }
+    }
+
     def apply[A](al: A*): fpList[A] = {
       if (al.isEmpty) Nil
       else Cons(al.head, apply(al.tail: _*))
