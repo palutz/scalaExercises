@@ -15,4 +15,7 @@ fpList(0,1,2,3,4,5) match {   // Int = 115
   case _ => 101
 }
 
+fpList.setHead(1, Nil)
+fpList.setHead(1, fpList(0,1,2,3,4,5))
 fpList.drop(fpList(0,1,2,3,4,5), 2)
+fpList.drop(Nil, 2)

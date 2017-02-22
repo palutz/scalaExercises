@@ -69,6 +69,7 @@ package fpIntro.second {
     def drop[A](l : fpList[A], n : Int): fpList[A] = {
       l match {
         case Cons(_, xs) if n > 0 => drop(xs, n - 1)
+        case Nil => Nil
         case _ if n <= 0 => l
       }
     }
