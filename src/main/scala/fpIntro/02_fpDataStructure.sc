@@ -14,3 +14,5 @@ fpList(0,1,2,3,4,5) match {   // Int = 115
   case Cons(h, t) => h + fpList.sum(t) + 100
   case _ => 101
 }
+
+fpList.drop(fpList(0,1,2,3,4,5), 2)

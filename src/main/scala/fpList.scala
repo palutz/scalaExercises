@@ -61,8 +61,15 @@ package fpIntro.second {
     // SetHead - substitute the head of a list
     def setHead[A](a: A, l: fpList[A]): fpList[A] = {
       l match {
-        case (_, t) => Cons(a, t)
+        case Cons(_, t) => Cons(a, t)
         case _ => Nil // Error
+      }
+    }
+
+    def drop[A](l : fpList[A], n : Int): fpList[A] = {
+      l match {
+        case Cons(_, xs) if n > 0 => drop(xs, n - 1)
+        case _ if n <= 0 => l
       }
     }
 
