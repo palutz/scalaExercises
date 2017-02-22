@@ -52,8 +52,9 @@ package fpIntro.second {
     // simple my implementation of tail
     def tail[A](l: fpList[A]): fpList[A] = {
       l match {
-        case Nil => Nil
         case Cons(_, xs) => xs
+        case _ => Nil
+
       }
     }
 
