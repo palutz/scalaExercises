@@ -2,7 +2,17 @@ package fpIntro.second {
 
   sealed trait fpList[+A]
   case object Nil extends fpList[Nothing]
-  case class Cons[+A](head: A, tail: fpList[A]) extends fpList[A]
+  case class Cons[+A](head: A, tail: fpList[A]) extends fpList[A] {
+    override def toString: String = {
+      def inner[A](l : fpList[A], ls: List[String]) : List[String] = {
+        l match {
+          case Cons(x, xs) => inner(xs, ls :+ x.toString)
+          case Nil => ls
+        }
+      }
+      "List(" + inner(this, List()).mkString(",") + ")"
+    }
+  }
 
   // companion object for my List (fpList)
   object fpList {
@@ -71,6 +81,20 @@ package fpIntro.second {
         case Cons(_, xs) if n > 0 => drop(xs, n - 1)
         case Nil => Nil
         case _ if n <= 0 => l
+      }
+    }
+
+    def dropWhile[A](l: fpList[A], f: A => Boolean) : fpList[A] = {
+      l match {
+        case Cons(x, xs) if f(x) => dropWhile(xs, f)
+        case _ => l
+      }
+    }
+
+    def append[A](l1: fpList[A], l2: fpList[A]) : fpList[A] = {
+      l1 match {
+        case Cons(x, xs) => Cons(x, append(xs, l2))
+        case Nil => l2
       }
     }
 
