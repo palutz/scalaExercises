@@ -33,7 +33,6 @@ package fpIntro.second {
           case Cons(x, xs) => inner(xs, acc + x)
         }
       }
-
       inner(ll, 0)
     }
 
@@ -55,8 +54,23 @@ package fpIntro.second {
           case Cons(x, xs) => inner(xs, acc * x)
         }
       }
-
       inner(ll, 1.0)
+    }
+
+    def foldRight[A, B](al: fpList[A], z: B)(f: (A, B) => B): B = {
+      al match {
+        case Nil => z
+        case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+      }
+    }
+
+    def sum2(ll: fpList[Int]): Int = {
+      // fpList.foldRight(ll, 0)((x,y) => x + y)  .. same of
+      fpList.foldRight(ll, 0)(_ + _)
+    }
+
+    def product2(ll: fpList[Double]): Double = {
+      fpList.foldRight(ll, 1.0)(_ * _)
     }
 
     // simple my implementation of tail
@@ -89,6 +103,10 @@ package fpIntro.second {
         case Cons(x, xs) if f(x) => dropWhile(xs, f)
         case _ => l
       }
+    }
+    // curried version to help Scala to infer better the type of A in the function f
+    def dropWhile2[A](l: fpList[A])(f: A => Boolean): fpList[A] = {
+      dropWhile(l, f)
     }
 
     def append[A](l1: fpList[A], l2: fpList[A]) : fpList[A] = {
