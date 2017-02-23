@@ -98,6 +98,15 @@ package fpIntro.second {
       }
     }
 
+    // return a list with all the element but the last one ...
+    def init[A](l: fpList[A]): fpList[A] = {
+      l match {
+        case Cons(_, Nil) => Nil
+        case Cons(x, xs) => Cons(x, init(xs))
+        case Nil => Nil
+      }
+    }
+
     def apply[A](al: A*): fpList[A] = {
       if (al.isEmpty) Nil
       else Cons(al.head, apply(al.tail: _*))

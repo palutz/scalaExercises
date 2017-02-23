@@ -23,6 +23,11 @@ fpList.dropWhile(fpList(0,1,2,3,4,5), { x : Int => x < 3 })  //  res7: fpIntro.s
 
 fpList.append(Cons(1, Cons(2, Cons(3, Nil))), Cons(4, Cons(5, Cons(6, Nil))))
 
+fpList.init(fpList(0,1,2,3,4,5))
+fpList.init(fpList(0))
+fpList.init(Nil)
+
+
 
 
 
