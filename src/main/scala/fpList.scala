@@ -60,7 +60,7 @@ package fpIntro.second {
     def foldRight[A, B](al: fpList[A], z: B)(f: (A, B) => B): B = {
       al match {
         case Nil => z
-        case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+        case Cons(x, xs) => f(x, foldRight(xs, z)(f))   /// NOT tailrec!
       }
     }
 

@@ -32,7 +32,18 @@ fpList.init(Nil)
 fpList.sum2(fpList(0,1,2,3,4,5))
 fpList.product2(fpList(1,2,3,4,5))
 
+//al match {
+//  case Nil => z
+//  case Cons(x, xs) => f(x, foldRight(xs, z)(f))   /// NOT tailrec!
+//}
+fpList.foldRight(fpList(1, 2, 3), Nil: fpList[Int])(Cons(_, _))
+Cons(1, fpList.foldRight(fpList(2, 3), Nil: fpList[Int])(Cons(_, _)))
+Cons(1, Cons(2, fpList.foldRight(fpList(3), Nil: fpList[Int])(Cons(_, _))))
+Cons(1, Cons(2, Cons(3, fpList.foldRight(fpList(), Nil: fpList[Int])(Cons(_, _)) )))
 
-
-
-
+def foldRight[A, B](z: B)(l : List[A])(f: (A, B) => B): B = {
+  l match {
+    case x :: xs => f(x, foldRight(z)(xs)(f))
+    case _ => z
+  }
+}
