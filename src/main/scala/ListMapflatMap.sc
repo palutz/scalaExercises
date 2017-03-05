@@ -46,3 +46,19 @@ list flatMap { c =>
     c -> j
   }
 }
+
+// -----
+
+val matrix = List("Neo", "Trinity", "Morpheus")
+val f: String => List[Int] = s => (s map { _.toInt }).toList
+
+matrix map f
+for {
+  s <- matrix
+} yield f(s)
+
+matrix flatMap f
+for {
+  s <- matrix
+  x <- f(s)
+} yield x
