@@ -30,8 +30,7 @@ l flatMap { i =>
       l3 map { x => i * i2 + x }
     }
 }  // res6: List[Int] = List(14, 24, 15, 25, 16, 26, 18, 28, 20, 30, 22, 32, 22, 32, 25, 35, 28, 38)
-
-
+// ***************************
 val list = List("India", "Japan", "France", "Russia")
 val capitals =
   Map("India" -> "New Delhi", "Japan" -> "Tokyo", "France" -> "Paris")
@@ -46,19 +45,17 @@ list flatMap { c =>
     c -> j
   }
 }
-
-// -----
-
+// ***************************
 val matrix = List("Neo", "Trinity", "Morpheus")
-val f: String => List[Int] = s => (s map { _.toInt }).toList
+val f: String => List[Int] = s => (s map { _.toInt }).toList   // res9: List[List[Int]] = List(List(78, 101, 111), List(84, 114, 105, 110, 105, 116, 121), List(77, 111, 114, 112, 104, 101, 117, 115))
 
 matrix map f
 for {
   s <- matrix
-} yield f(s)
+} yield f(s)     // same as before (map)
 
-matrix flatMap f
+matrix flatMap f // res11: List[Int] = List(78, 101, 111, 84, 114, 105, 110, 105, 116, 121, 77, 111, 114, 112, 104, 101, 117, 115)
 for {
   s <- matrix
   x <- f(s)
-} yield x
+} yield x  // same as before (flatmap)
